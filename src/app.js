@@ -1,17 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { Op } = require("sequelize");
-const { sequelize } = require('./model')
-const { getProfile } = require('./middleware/getProfile')
+const { Op } = require('sequelize');
+const { sequelize } = require('./model');
+const { getProfile } = require('./middleware/getProfile');
+
 const app = express();
 app.use(bodyParser.json());
-app.set('sequelize', sequelize)
-app.set('models', sequelize.models)
+app.set('sequelize', sequelize);
+app.set('models', sequelize.models);
 
-/**
- * FIX ME!
- * @returns contract by id
- */
+// GET /contracts/:id - Get a specific contract by ID
 app.get('/contracts/:id', getProfile, async (req, res) => {
     const { Contract, Profile } = req.app.get('models')
     const { id } = req.params
@@ -47,7 +45,7 @@ app.get('/contracts/:id', getProfile, async (req, res) => {
     res.json(contract)
 })
 
-// GET /contracts
+// GET /contracts - Get contracts related to the authenticated profile
 app.get('/contracts', getProfile, async (req, res, next) => {
     try {
         const { Contract, Profile } = req.app.get('models')
@@ -79,7 +77,7 @@ app.get('/contracts', getProfile, async (req, res, next) => {
     }
 });
 
-// GET /jobs/unpaid
+// GET /jobs/unpaid - Get unpaid jobs related to the authenticated profile
 app.get('/jobs/unpaid', getProfile, async (req, res, next) => {
     try {
         const { Contract, Profile, Job } = req.app.get('models')
@@ -237,8 +235,8 @@ app.post('/balances/deposit/:userId', getProfile, async (req, res) => {
 });
 
 
-// GET /admin/best-profession?start=<date>&end=<date>
-app.get('/admin/best-profession', async (req, res) => {
+// GET /admin/best-profession - Get the best profession based on paid jobs between two dates
+app.get('/admin/best-profession', getProfile, async (req, res) => {
     const { start, end } = req.query;
     const { Contract, Profile, Job } = req.app.get('models')
 
@@ -286,8 +284,8 @@ app.get('/admin/best-profession', async (req, res) => {
 });
 
 
-// GET /admin/best-clients?start=<date>&end=<date>&limit=<integer>
-app.get('/admin/best-clients', async (req, res) => {
+// GET /admin/best-clients - Get the best clients based on paid jobs between two dates
+app.get('/admin/best-clients', getProfile, async (req, res) => {
     const { start, end, limit } = req.query;
     const { Contract, Profile, Job } = req.app.get('models')
 

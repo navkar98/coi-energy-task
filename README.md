@@ -5,7 +5,7 @@
 Welcome! 🎉
 
 
-This exercise involves building a Node.js/Express.js app that will serve a REST API. We imagine you should spend around 3 hours at implement this feature.
+This is a Node.js/Express.js app that will serve a REST API.
 
 ## Data Models
 
@@ -27,7 +27,7 @@ contractor get paid for jobs by clients under a certain contract.
 ## Getting Set Up
 
   
-The exercise requires [Node.js](https://nodejs.org/en/) to be installed. We recommend using the LTS version.
+It requires [Node.js](https://nodejs.org/en/) to be installed. LTS version is recommended.
 
   
 
@@ -47,8 +47,6 @@ The exercise requires [Node.js](https://nodejs.org/en/) to be installed. We reco
 
   
 
-❗️ **Make sure you commit all changes to the master branch!**
-
   
   
 
@@ -58,29 +56,29 @@ The exercise requires [Node.js](https://nodejs.org/en/) to be installed. We reco
 
 - The server is running with [nodemon](https://nodemon.io/) which will automatically restart for you when you modify and save a file.
 
-- The database provider is SQLite, which will store data in a file local to your repository called `database.sqlite3`. The ORM [Sequelize](http://docs.sequelizejs.com/) is on top of it. You should only have to interact with Sequelize - **please spend some time reading sequelize documentation before starting the exercise.**
+- The database provider is SQLite, which will store data in a file local to your repository called `database.sqlite3`. The ORM [Sequelize](http://docs.sequelizejs.com/) is on top of it.
 
 - To authenticate users use the `getProfile` middleware that is located under src/middleware/getProfile.js. users are authenticated by passing `profile_id` in the request header. after a user is authenticated his profile will be available under `req.profile`. make sure only users that are on the contract can access their contracts.
 - The server is running on port 3001.
 
   
 
-## APIs To Implement 
+## APIs Implemented
 
   
 
-Below is a list of the required API's for the application.
+Below is a list of the API's implemented for the application.
 
   
 
 
-1. ***GET*** `/contracts/:id` - This API is broken 😵! it should return the contract only if it belongs to the profile calling. better fix that!
+1. ***GET*** `/contracts/:id` - This API is now fixed! It returns the contract only if it belongs to the profile calling.
 
 1. ***GET*** `/contracts` - Returns a list of contracts belonging to a user (client or contractor), the list should only contain non terminated contracts.
 
 1. ***GET*** `/jobs/unpaid` -  Get all unpaid jobs for a user (***either*** a client or contractor), for ***active contracts only***.
 
-1. ***POST*** `/jobs/:job_id/pay` - Pay for a job, a client can only pay if his balance >= the amount to pay. The amount should be moved from the client's balance to the contractor balance.
+1. ***POST*** `/jobs/:job_id/pay` - Pay for a job, a client can only pay if his balance >= the amount to pay. The amount should be moved from the client's balance to the contractor balance. ***Added: A payment can only be authorized by the client for that particular job***
 
 1. ***POST*** `/balances/deposit/:userId` - Deposits money into the the the balance of a client, a client can't deposit more than 25% his total of jobs to pay. (at the deposit moment)
 
@@ -109,18 +107,7 @@ Below is a list of the required API's for the application.
 
   
 
-## Going Above and Beyond the Requirements
+## Unit Test
 
-Given the time expectations of this exercise, we don't expect anyone to submit anything super fancy, but if you find yourself with extra time, any extra credit item(s) that showcase your unique strengths would be awesome! 🙌
+There is a file named as ```test-cases.postman_collection``` where you can find postman api collection which unit tests the above api's. Please import them in postman to check if api's are working properly.
 
-It would be great for example if you'd write some unit test / simple frontend demostrating calls to your fresh APIs.
-
-  
-
-## Submitting the Assignment
-
-When you have finished the assignment, create a github repository and send us the link. ytzvan.mastino@coienergy.com
-
-  
-
-Thank you and good luck! 🙏
